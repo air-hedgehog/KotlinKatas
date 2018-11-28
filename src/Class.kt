@@ -1,3 +1,5 @@
+import java.util.*
+
 fun main(args: Array<String>) {
 
     //return string of max and min value of string of numbers
@@ -34,10 +36,32 @@ fun main(args: Array<String>) {
     #Task: Your task is to return to the function seven(m) (m integer >= 0) an array (or a pair, depending on the language)
     of numbers, the first being the last number m with at most 2 digits obtained by your function (this last m will be
     divisible or not by 7), the second one being the number of steps to get the result.*/
-    println(seven(921))
+    println(Arrays.deepToString(arrayOf(seven(921))))
 
     //sum only positive
     println(sum(intArrayOf(12, 3, 65, -34, 3, -1)))
+
+    /*I have a cat and a dog.
+    I got them at the same time as kitten/puppy. That was humanYears years ago.
+    Return their respective ages now as [humanYears,catYears,dogYears]
+
+    NOTES:
+
+        humanYears >= 1
+        humanYears are whole numbers only
+
+    Cat Years
+
+        15 cat years for first year
+        +9 cat years for second year
+        +4 cat years for each year after that
+
+    Dog Years
+
+        15 dog years for first year
+        +9 dog years for second year
+        +5 dog years for each year after that*/
+    println(Arrays.deepToString(calculateYears(10)))
 }
 
 fun printMaxMinString(str: String) =
@@ -91,3 +115,24 @@ fun seven(n: Long, i: Long = 0): LongArray =
         longArrayOf(n, i)
 
 fun sum(numbers: IntArray): Int = numbers.filter { it > 0 }.sum()
+
+fun calculateYears(years: Int): Array<Int> {
+    var catYears = 0
+    var dogYears = 0
+
+    for (i in 1..years) {
+        if (i == 1) {
+            catYears += 15
+            dogYears += 15
+            continue
+        }
+        if (i == 2) {
+            catYears += 9
+            dogYears += 9
+            continue
+        }
+        catYears += 4
+        dogYears += 5
+    }
+    return arrayOf(years, catYears, dogYears)
+}
