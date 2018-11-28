@@ -34,8 +34,10 @@ fun main(args: Array<String>) {
     #Task: Your task is to return to the function seven(m) (m integer >= 0) an array (or a pair, depending on the language)
     of numbers, the first being the last number m with at most 2 digits obtained by your function (this last m will be
     divisible or not by 7), the second one being the number of steps to get the result.*/
-    for (i: Long in seven(921))
-        println(i)
+    println(seven(921))
+
+    //sum only positive
+    println(sum(intArrayOf(12, 3, 65, -34, 3, -1)))
 }
 
 fun printMaxMinString(str: String) =
@@ -87,3 +89,5 @@ fun seven(n: Long, i: Long = 0): LongArray =
         seven(n / 10 - n % 10 * 2, i + 1)
     else
         longArrayOf(n, i)
+
+fun sum(numbers: IntArray): Int = numbers.filter { it > 0 }.sum()
