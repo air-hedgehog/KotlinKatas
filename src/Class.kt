@@ -62,7 +62,19 @@ fun main(args: Array<String>) {
         +9 dog years for second year
         +5 dog years for each year after that*/
     println(Arrays.deepToString(calculateYears(10)))
+
+    /*Write a function called repeatStr which repeats the given string string exactly n times.*/
+    println(repeatStr(4, "fuck"))
 }
+
+/*fun repeatStr(r: Int, str: String) = r.let {
+    var result = ""
+    for (i in 1..r)
+        result += str
+    return@let result
+}*/
+
+fun repeatStr(r: Int, str: String) = str.repeat(r)
 
 fun printMaxMinString(str: String) =
     str
