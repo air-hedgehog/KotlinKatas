@@ -107,7 +107,27 @@ fun main(args: Array<String>) {
     /*Move every letter in the provided string forward 10 letters through the alphabet.
     If it goes past 'z', start again at 'a'.*/
     println(moveTen("testcase"))
+
+    /*eturn the number (count) of vowels in the given string.
+    We will consider a, e, i, o, and u as vowels for this Kata.*/
+    println(getCount("abracadabra"))
+
+    //Count how often sign changes in array.
+    println(catchSignChange(arrayOf(1, -3, -4, 0, 5)))
 }
+
+fun catchSignChange(arr: Array<Int>): Int = arr.asSequence().zipWithNext().count { it.first >= 0 != it.second >= 0 }
+
+/*fun getCount(str : String) : Int {
+    val vowels = "aeiou"
+    var result = 0
+    for (character in str.toList()) {
+        if (vowels.contains(character.toLowerCase()))
+            result++
+    }
+    return result
+}*/
+fun getCount(str: String) = str.count { it in "aeiou" }
 
 fun moveTen(s: String) = s.map { if (it < 'q') it + 10 else it - 16 }.joinToString("")
 
