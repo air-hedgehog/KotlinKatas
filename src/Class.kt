@@ -1,7 +1,6 @@
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.max
-import kotlin.math.min
 
 fun main(args: Array<String>) {
 
@@ -100,11 +99,28 @@ fun main(args: Array<String>) {
 
     //check if all values of array ar less then limit
     println(smallEnough(intArrayOf(101, 45, 75, 105, 99, 107), 107))
+
+    //Replace all vowel to exclamation mark in the sentence. aeiouAEIOU is vowel.
+    println(replace("aeiou"))
+    println(replace("ABCDE"))
+
+    /*Move every letter in the provided string forward 10 letters through the alphabet.
+    If it goes past 'z', start again at 'a'.*/
+    println(moveTen("testcase"))
 }
+
+fun moveTen(s: String) = s.map { if (it < 'q') it + 10 else it - 16 }.joinToString("")
+
+/*fun replace(s: String) = s.replace('a', '!', true)
+        .replace('e', '!', true)
+        .replace('i', '!', true)
+        .replace('o', '!', true)
+        .replace('u', '!', true)*/
+fun replace(s: String) = s.replace(Regex("[aeiou]", RegexOption.IGNORE_CASE), "!")
 
 //fun smallEnough(a : IntArray, limit : Int) = !(a.map { it <= limit }.contains(false))
 //fun smallEnough(a: IntArray, limit: Int) = a.all { it <= limit }
-fun smallEnough(a : IntArray, limit : Int) = a.none { it > limit }
+fun smallEnough(a: IntArray, limit: Int) = a.none { it > limit }
 
 /*fun repeatStr(r: Int, str: String) = r.let {
     var result = ""
