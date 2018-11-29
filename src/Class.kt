@@ -1,4 +1,7 @@
 import java.util.*
+import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 fun main(args: Array<String>) {
 
@@ -76,7 +79,32 @@ fun main(args: Array<String>) {
     println(catMouse("C....m"))
     println(catMouse("C...m"))
     println(catMouse("C..m"))
+
+    /*You are given two arrays a1 and a2 of strings. Each string is composed with letters from a to z. Let x be any string in the first array and y be any string in the second array.
+    Find max(abs(length(x) − length(y)))
+    If a1 and/or a2 are empty return -1 in each language except in Haskell (F#) where you will return Nothing (None).*/
+    val s1 = arrayOf(
+        "hoqq",
+        "bbllkw",
+        "oox",
+        "ejjuyyy",
+        "plmiis",
+        "xxxzgpsssa",
+        "xxwwkktt",
+        "znnnnfqknaz",
+        "qqquuhii",
+        "dvvvwz"
+    )
+    val s2 = arrayOf("cccooommaaqqoxii", "gggqaffhhh", "tttoowwwmmww")
+    println(mxdiflg(s1, s2))
+
+    //check if all values of array ar less then limit
+    println(smallEnough(intArrayOf(101, 45, 75, 105, 99, 107), 107))
 }
+
+//fun smallEnough(a : IntArray, limit : Int) = !(a.map { it <= limit }.contains(false))
+//fun smallEnough(a: IntArray, limit: Int) = a.all { it <= limit }
+fun smallEnough(a : IntArray, limit : Int) = a.none { it > limit }
 
 /*fun repeatStr(r: Int, str: String) = r.let {
     var result = ""
@@ -84,8 +112,23 @@ fun main(args: Array<String>) {
         result += str
     return@let result
 }*/
-
 fun repeatStr(r: Int, str: String) = str.repeat(r)
+
+fun mxdiflg(a1: Array<String>, a2: Array<String>): Int {
+    if (a1.isEmpty() || a2.isEmpty()) return -1
+    val isA1Larger = a1.size > a2.size
+    val largestArr = if (isA1Larger) a1 else a2
+    val smallestArr = if (isA1Larger) a2 else a1
+
+    var largest = 0
+    for (str1 in smallestArr) {
+        for (str2 in largestArr) {
+            val maxStr = abs(str1.length - str2.length)
+            largest = max(largest, maxStr)
+        }
+    }
+    return largest
+}
 
 fun printMaxMinString(str: String) =
     str
@@ -134,7 +177,6 @@ fun getDigitsCount(value: Long): Int {
     }
     return result
 }*/
-
 fun seven(n: Long, i: Long = 0): LongArray =
     if (n > 99)
         seven(n / 10 - n % 10 * 2, i + 1)
