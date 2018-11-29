@@ -65,6 +65,17 @@ fun main(args: Array<String>) {
 
     /*Write a function called repeatStr which repeats the given string string exactly n times.*/
     println(repeatStr(4, "fuck"))
+
+    //return shortest word of the sentence
+    println(findShort("turns out random test cases are easier than writing out basic ones"))
+
+    /*You will be given a string (x) featuring a cat 'C' and a mouse 'm'. The rest of the string will be made up of '.'.
+    You need to find out if the cat can catch the mouse from it's current position. The cat can jump over three characters. So:
+    C.....m returns 'Escaped!' <-- more than three characters between
+    C...m returns 'Caught!' <-- as there are three characters between the two, the cat can jump.*/
+    println(catMouse("C....m"))
+    println(catMouse("C...m"))
+    println(catMouse("C..m"))
 }
 
 /*fun repeatStr(r: Int, str: String) = r.let {
@@ -84,6 +95,10 @@ fun printMaxMinString(str: String) =
         .let {
             println("${it.max()} ${it.min()}")
         }
+
+fun catMouse(s: String) = if (s.indexOf('m') > s.indexOf('C') + 4) "Escaped!" else "Caught!"
+
+fun findShort(s: String) = s.trim().split(' ').minBy { it.length }
 
 fun people(busStops: Array<Pair<Int, Int>>) = busStops.sumBy { it.first - it.second }
 
