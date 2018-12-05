@@ -1,4 +1,6 @@
 import java.util.*
+import kotlin.math.abs
+import kotlin.math.max
 
 fun main(args: Array<String>) {
 
@@ -65,7 +67,80 @@ fun main(args: Array<String>) {
 
     /*Write a function called repeatStr which repeats the given string string exactly n times.*/
     println(repeatStr(4, "fuck"))
+
+    //return shortest word of the sentence
+    println(findShort("turns out random test cases are easier than writing out basic ones"))
+
+    /*You will be given a string (x) featuring a cat 'C' and a mouse 'm'. The rest of the string will be made up of '.'.
+    You need to find out if the cat can catch the mouse from it's current position. The cat can jump over three characters. So:
+    C.....m returns 'Escaped!' <-- more than three characters between
+    C...m returns 'Caught!' <-- as there are three characters between the two, the cat can jump.*/
+    println(catMouse("C....m"))
+    println(catMouse("C...m"))
+    println(catMouse("C..m"))
+
+    /*You are given two arrays a1 and a2 of strings. Each string is composed with letters from a to z. Let x be any string in the first array and y be any string in the second array.
+    Find max(abs(length(x) − length(y)))
+    If a1 and/or a2 are empty return -1 in each language except in Haskell (F#) where you will return Nothing (None).*/
+    val s1 = arrayOf(
+        "hoqq",
+        "bbllkw",
+        "oox",
+        "ejjuyyy",
+        "plmiis",
+        "xxxzgpsssa",
+        "xxwwkktt",
+        "znnnnfqknaz",
+        "qqquuhii",
+        "dvvvwz"
+    )
+    val s2 = arrayOf("cccooommaaqqoxii", "gggqaffhhh", "tttoowwwmmww")
+    println(mxdiflg(s1, s2))
+
+    //check if all values of array ar less then limit
+    println(smallEnough(intArrayOf(101, 45, 75, 105, 99, 107), 107))
+
+    //Replace all vowel to exclamation mark in the sentence. aeiouAEIOU is vowel.
+    println(replace("aeiou"))
+    println(replace("ABCDE"))
+
+    /*Move every letter in the provided string forward 10 letters through the alphabet.
+    If it goes past 'z', start again at 'a'.*/
+    println(moveTen("testcase"))
+
+    /*eturn the number (count) of vowels in the given string.
+    We will consider a, e, i, o, and u as vowels for this Kata.*/
+    println(getCount("abracadabra"))
+
+    //Count how often sign changes in array.
+    println(catchSignChange(arrayOf(1, -3, -4, 0, 5)))
 }
+
+fun catchSignChange(arr: Array<Int>): Int = arr.asSequence().zipWithNext().count { it.first >= 0 != it.second >= 0 }
+
+/*fun getCount(str : String) : Int {
+    val vowels = "aeiou"
+    var result = 0
+    for (character in str.toList()) {
+        if (vowels.contains(character.toLowerCase()))
+            result++
+    }
+    return result
+}*/
+fun getCount(str: String) = str.count { it in "aeiou" }
+
+fun moveTen(s: String) = s.map { if (it < 'q') it + 10 else it - 16 }.joinToString("")
+
+/*fun replace(s: String) = s.replace('a', '!', true)
+        .replace('e', '!', true)
+        .replace('i', '!', true)
+        .replace('o', '!', true)
+        .replace('u', '!', true)*/
+fun replace(s: String) = s.replace(Regex("[aeiou]", RegexOption.IGNORE_CASE), "!")
+
+//fun smallEnough(a : IntArray, limit : Int) = !(a.map { it <= limit }.contains(false))
+//fun smallEnough(a: IntArray, limit: Int) = a.all { it <= limit }
+fun smallEnough(a: IntArray, limit: Int) = a.none { it > limit }
 
 /*fun repeatStr(r: Int, str: String) = r.let {
     var result = ""
@@ -73,8 +148,23 @@ fun main(args: Array<String>) {
         result += str
     return@let result
 }*/
-
 fun repeatStr(r: Int, str: String) = str.repeat(r)
+
+fun mxdiflg(a1: Array<String>, a2: Array<String>): Int {
+    if (a1.isEmpty() || a2.isEmpty()) return -1
+    val isA1Larger = a1.size > a2.size
+    val largestArr = if (isA1Larger) a1 else a2
+    val smallestArr = if (isA1Larger) a2 else a1
+
+    var largest = 0
+    for (str1 in smallestArr) {
+        for (str2 in largestArr) {
+            val maxStr = abs(str1.length - str2.length)
+            largest = max(largest, maxStr)
+        }
+    }
+    return largest
+}
 
 fun printMaxMinString(str: String) =
     str
@@ -84,6 +174,10 @@ fun printMaxMinString(str: String) =
         .let {
             println("${it.max()} ${it.min()}")
         }
+
+fun catMouse(s: String) = if (s.indexOf('m') > s.indexOf('C') + 4) "Escaped!" else "Caught!"
+
+fun findShort(s: String) = s.trim().split(' ').minBy { it.length }
 
 fun people(busStops: Array<Pair<Int, Int>>) = busStops.sumBy { it.first - it.second }
 
@@ -119,7 +213,6 @@ fun getDigitsCount(value: Long): Int {
     }
     return result
 }*/
-
 fun seven(n: Long, i: Long = 0): LongArray =
     if (n > 99)
         seven(n / 10 - n % 10 * 2, i + 1)
