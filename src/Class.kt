@@ -1,4 +1,5 @@
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -83,16 +84,16 @@ fun main(args: Array<String>) {
     Find max(abs(length(x) − length(y)))
     If a1 and/or a2 are empty return -1 in each language except in Haskell (F#) where you will return Nothing (None).*/
     val s1 = arrayOf(
-        "hoqq",
-        "bbllkw",
-        "oox",
-        "ejjuyyy",
-        "plmiis",
-        "xxxzgpsssa",
-        "xxwwkktt",
-        "znnnnfqknaz",
-        "qqquuhii",
-        "dvvvwz"
+            "hoqq",
+            "bbllkw",
+            "oox",
+            "ejjuyyy",
+            "plmiis",
+            "xxxzgpsssa",
+            "xxwwkktt",
+            "znnnnfqknaz",
+            "qqquuhii",
+            "dvvvwz"
     )
     val s2 = arrayOf("cccooommaaqqoxii", "gggqaffhhh", "tttoowwwmmww")
     println(mxdiflg(s1, s2))
@@ -114,7 +115,19 @@ fun main(args: Array<String>) {
 
     //Count how often sign changes in array.
     println(catchSignChange(arrayOf(1, -3, -4, 0, 5)))
+
+    // Given a list lst and a number N, create a new list that contains each number of lst at most N times without reordering.
+    // For example if N = 2, and the input is [1,2,3,1,2,1,2,3], you take [1,2,3,1,2], drop the next [1,2] since this
+    // would lead to 1 and 2 being in the result 3 times, and then take 3, which leads to [1,2,3,1,2,3].
+    deleteNth(intArrayOf(20, 37, 20, 21), 1).forEach { print("$it ") }
 }
+
+fun deleteNth(elements: IntArray, maxOcurrences: Int): IntArray {
+    val list: ArrayList<Int> = ArrayList()
+    elements.forEach { element -> if (list.count { it == element } < maxOcurrences) list.add(element) }
+    return list.toIntArray()
+}
+
 
 fun catchSignChange(arr: Array<Int>): Int = arr.asSequence().zipWithNext().count { it.first >= 0 != it.second >= 0 }
 
@@ -167,13 +180,13 @@ fun mxdiflg(a1: Array<String>, a2: Array<String>): Int {
 }
 
 fun printMaxMinString(str: String) =
-    str
-        .trim()
-        .split(' ')
-        .map(String::toInt)
-        .let {
-            println("${it.max()} ${it.min()}")
-        }
+        str
+                .trim()
+                .split(' ')
+                .map(String::toInt)
+                .let {
+                    println("${it.max()} ${it.min()}")
+                }
 
 fun catMouse(s: String) = if (s.indexOf('m') > s.indexOf('C') + 4) "Escaped!" else "Caught!"
 
@@ -214,10 +227,10 @@ fun getDigitsCount(value: Long): Int {
     return result
 }*/
 fun seven(n: Long, i: Long = 0): LongArray =
-    if (n > 99)
-        seven(n / 10 - n % 10 * 2, i + 1)
-    else
-        longArrayOf(n, i)
+        if (n > 99)
+            seven(n / 10 - n % 10 * 2, i + 1)
+        else
+            longArrayOf(n, i)
 
 fun sum(numbers: IntArray): Int = numbers.filter { it > 0 }.sum()
 
